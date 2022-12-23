@@ -25,24 +25,46 @@ app.use("/api/password-reset", passwordResetRoutes);
 
 
 //Server production Asset
-if(process.env.NODE_ENV === "production") {
-    app.use(express.static(path.join("frontend/build")))
-    app.get("*", (req, res) => {
-        res.sendFile(path.resolve(__dirname,"Frontend","build", "index.html"));
-    })
-}
+// if(process.env.NODE_ENV === "production") {
+//     app.use(express.static(path.join("Frontend/build")))
+//     app.get("*", (req, res) => {
+//         res.sendFile(path.resolve(__dirname,"Frontend","build", "index.html"));
+//     })
+// }
 
 
 //port
-const PORT=5000;
+const PORT=process.env.PORT || 3000;
 
-//MONGODB URI
-const URI= "mongodb+srv://crmapp:crmapp@cluster0.gjpeq.mongodb.net/crmapp?retryWrites=true&w=majority"
+// //MONGODB URI
+const MONGO_URL= "mongodb+srv://userpro:userpro@cluster0.0exjg24.mongodb.net/userprofile?retryWrites=true&w=majority"
 
-mongoose.connect(URI).then(()=>{
+mongoose.connect(MONGO_URL).then(()=>{
     app.listen(PORT, ()=>{
         console.log(`Server is running on ${PORT}`)
     })
 }).catch((error)=>{
     console.log(error);
 })
+
+
+// const connect = async () => {
+//     try {
+//       await mongoose.connect(process.env.MONGO_URI,{
+//         useUnifiedTopology: true,
+//         useNewUrlParser: true,
+//         useCreateIndex: true
+//     });
+//       console.log("Connected to mongoDB.");
+//     } catch (error) {
+//       throw error;
+//     }
+//   };
+//   mongoose.connection.on("disconnected", () => {
+//     console.log("mongoDB disconnected!");
+//   });
+
+//   app.listen(PORT, ()=>{
+//     connect();
+//     console.log(`Server is running on ${PORT}`)
+// })
