@@ -6,6 +6,7 @@ const connection = require("./db");
 const mongoose = require('mongoose');
 const userRoutes = require("./routes/users");
 const authRoutes = require("./routes/auth");
+const profileRoutes = require("./routes/profile");
 const passwordResetRoutes = require("./routes/passwordReset");
 
 // database connection
@@ -18,6 +19,7 @@ app.use(cors());
 // routes
 app.use("/api/users", userRoutes);
 app.use("/api/auth", authRoutes);
+app.use("/api/profile", profileRoutes);
 app.use("/api/password-reset", passwordResetRoutes);
 
 // const port = process.env.PORT || 8080;
